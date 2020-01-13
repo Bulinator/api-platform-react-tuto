@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import timeago from 'timeago.js';
+import {Link} from "react-router-dom";
 
 class BlogPostList extends Component {
     render() {
@@ -23,7 +24,11 @@ class BlogPostList extends Component {
                     {posts && posts.map(post => (
                         <div key={post.id} className="card mb-3 mt-3 shadow-sm">
                             <div className="card-body">
-                                <h4>{post.title}</h4>
+                                <h4>
+                                    <Link to={`/blog-post/${post.id}`}>
+                                        {post.title}
+                                    </Link>
+                                </h4>
                                 <p className="card-text bordet-top">
                                     <small className="text-muted">
                                         {timeago().format(post.published)}
