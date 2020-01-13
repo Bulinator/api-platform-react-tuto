@@ -12,7 +12,7 @@ class BlogPostList extends Component {
             );
         }
 
-        if (null === posts || !posts.length) {
+        if (null === posts || 0 === posts.length) {
             return(
                 <div>No article has been posted</div>
             );
