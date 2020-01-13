@@ -1,13 +1,21 @@
 import React, {Component} from 'react';
 
 class BlogPostList extends Component {
-    constructor(props) {
-        super(props);
-        console.log(props);
-    }
-
     render() {
-        const {posts} = this.props;
+        const {posts, isFetching} = this.props;
+
+        if (isFetching) {
+            return(
+                <div><i className="fas fa-spinner fa-spin" /></div>
+            );
+        }
+
+        if (null === posts || !posts.length) {
+            return(
+                <div>No article has been posted</div>
+            );
+        }
+
         return (
             <div>
                 <ul>
