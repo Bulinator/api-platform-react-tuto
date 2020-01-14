@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import BlogPost from "../components/BlogPost";
 import {blogPostFetch, blogPostUnload} from "../actions";
 import {Spinner} from "../components/common/Spinner";
+import CommentListContainer from "./CommentListContainer";
 
 const mapStateToProps = state => ({
     ...state.blogPost
@@ -30,7 +31,11 @@ class BlogPostContainer extends Component {
         }
 
         return (
-            <BlogPost post={post} />
+            <div>
+                <BlogPost post={post} />
+                {post && <CommentListContainer blogPostId={this.props.match.params.id} />}
+            </div>
+
         );
     }
 }

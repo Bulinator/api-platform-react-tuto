@@ -50,7 +50,7 @@ export const blogPostFetch = (id) => {
             .then(response => dispatch(blogPostReceived(response)))
             .catch(error => dispatch(blogPostError(error)));
     }
-}
+};
 
 export const blogPostRequest = () => ({
     type: BLOG_POST_REQUEST

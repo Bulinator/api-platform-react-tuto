@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import timeago from 'timeago.js';
-import {Message} from "./common/Message";
+import { Message } from "./common/Message";
 
 
 class BlogPost extends Component {
