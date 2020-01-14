@@ -1,11 +1,19 @@
 import React, {Component} from 'react';
 import {Field, reduxForm} from "redux-form";
+import {connect} from "react-redux";
 import {renderField} from "../form";
-import handleSubmit from "redux-form/lib/handleSubmit";
+import {userLoginAttempt} from '../actions';
+
+
+const mapDispatchToProps = {
+    userLoginAttempt
+};
 
 class LoginForm extends Component {
     onSubmit(values) {
-        console.log(values);
+        return this.props.userLoginAttempt(
+             values.username, values.password
+        );
     }
 
     render() {
@@ -25,4 +33,4 @@ class LoginForm extends Component {
 
 export default reduxForm({
     form: 'LoginForm'
-})(LoginForm);
+})(connect(null, mapDispatchToProps)(LoginForm));

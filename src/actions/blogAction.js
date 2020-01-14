@@ -9,7 +9,6 @@ import {
     BLOG_POST_UNLOAD
 
 } from "./types";
-
 import {requests} from "../agent";
 
 export const blogPostListRequest = () => ({
