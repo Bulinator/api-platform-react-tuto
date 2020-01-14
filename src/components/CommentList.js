@@ -17,7 +17,7 @@ class CommentList extends Component {
             <div className="card shadow-sm">
                 {commentList.map(comment => {
                     return (
-                        <div className="card-body border-bottom" key={commentList.id} >
+                        <div className="card-body border-bottom" key={comment.id} >
                             <p className="card-text mb-0">
                                 <small>{comment.content}</small>
                             </p>
