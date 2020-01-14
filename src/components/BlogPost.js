@@ -1,19 +1,15 @@
 import React, {Component} from 'react';
 import timeago from 'timeago.js';
+import {Message} from "./common/Message";
+
 
 class BlogPost extends Component {
     render() {
-        const {post, isFetching} = this.props;
-
-        if (isFetching) {
-            return(
-                <div><i className="fas fa-spinner fa-spin" /></div>
-            );
-        }
+        const { post } = this.props;
 
         if (null === post) {
-            return(
-                <div>No article match your request!</div>
+            return (
+                <Message message="No article match your request!" />
             );
         }
 

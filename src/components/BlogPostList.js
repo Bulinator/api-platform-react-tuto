@@ -1,20 +1,16 @@
 import React, {Component} from 'react';
 import timeago from 'timeago.js';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Message } from './common/Message';
+
 
 class BlogPostList extends Component {
     render() {
-        const {posts, isFetching} = this.props;
-
-        if (isFetching) {
-            return(
-                <div><i className="fas fa-spinner fa-spin" /></div>
-            );
-        }
+        const {posts} = this.props;
 
         if (null === posts || 0 === posts.length) {
             return(
-                <div>No article has been posted</div>
+                <Message message="No article has been posted" />
             );
         }
 
