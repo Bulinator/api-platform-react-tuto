@@ -6,7 +6,7 @@ import BlogPostListContainer from "../container/BlogPostListContainer";
 import BlogPostContainer from '../container/BlogPostContainer';
 import Header from "./Header";
 import {requests} from "../agent";
-import {userProfileFetch} from "../actions";
+import {userProfileFetch, userSetId} from "../actions";
 
 
 const mapStateToProps = state => ({
@@ -14,7 +14,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    userProfileFetch
+    userProfileFetch,
+    userSetId
 };
 
 class App extends Component {
@@ -27,9 +28,17 @@ class App extends Component {
         }
     }
 
+    componentDidMount() {
+        const userId = window.localStorage.getItem('userId');
+        const {userProfileFetch, userSetId} = this.props;
+        if (userId) {
+            userSetId(userId);
+        }
+    }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const { userId, userProfileFetch } = this.props;
-        if (prevProps.userId !== userId && userId !== null) {
+        const { userId, userData, userProfileFetch } = this.props;
+        if (prevProps.userId !== userId && userId !== null && userData === null) {
             console.log(`Old uid ${prevProps.userId}`);
             console.log(`New uid ${userId}`);
             userProfileFetch(userId);
@@ -37,10 +46,10 @@ class App extends Component {
     }
 
     render() {
-        const { isAuthenticated } = this.props;
+        const { isAuthenticated, userData } = this.props;
         return (
             <div>
-                <Header isAuthenticated={isAuthenticated} />
+                <Header isAuthenticated={isAuthenticated} userData={userData} />
                 <Switch>
                     <Route path="/login" exact component={LoginForm} />
                     <Route path="/blog-post/:id" exact component={BlogPostContainer}/>
