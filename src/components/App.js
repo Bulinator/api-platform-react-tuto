@@ -6,11 +6,16 @@ import BlogPostListContainer from "../container/BlogPostListContainer";
 import BlogPostContainer from '../container/BlogPostContainer';
 import Header from "./Header";
 import {requests} from "../agent";
+import {userProfileFetch} from "../actions";
 
 
 const mapStateToProps = state => ({
     ...state.auth
 });
+
+const mapDispatchToProps = {
+    userProfileFetch
+};
 
 class App extends Component {
     constructor(props) {
@@ -19,6 +24,15 @@ class App extends Component {
 
         if (token) {
             requests.setToken(token);
+        }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const { userId, userProfileFetch } = this.props;
+        if (prevProps.userId !== userId && userId !== null) {
+            console.log(`Old uid ${prevProps.userId}`);
+            console.log(`New uid ${userId}`);
+            userProfileFetch(userId);
         }
     }
 
@@ -37,4 +51,4 @@ class App extends Component {
     }
 }
 
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
