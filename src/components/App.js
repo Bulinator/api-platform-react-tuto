@@ -1,10 +1,16 @@
 import React, {Component} from 'react';
 import {Route, Switch} from "react-router";
+import {connect} from "react-redux";
 import LoginForm from "./LoginForm";
 import BlogPostListContainer from "../container/BlogPostListContainer";
 import BlogPostContainer from '../container/BlogPostContainer';
 import Header from "./Header";
 import {requests} from "../agent";
+
+
+const mapStateToProps = state => ({
+    ...state.auth
+});
 
 class App extends Component {
     constructor(props) {
@@ -17,9 +23,10 @@ class App extends Component {
     }
 
     render() {
+        const { isAuthenticated } = this.props;
         return (
             <div>
-                <Header />
+                <Header isAuthenticated={isAuthenticated} />
                 <Switch>
                     <Route path="/login" exact component={LoginForm} />
                     <Route path="/blog-post/:id" exact component={BlogPostContainer}/>
@@ -30,4 +37,4 @@ class App extends Component {
     }
 }
 
-export default App;
+export default connect(mapStateToProps, null)(App);
