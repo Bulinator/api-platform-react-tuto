@@ -16,7 +16,7 @@ export default(state = {post: null, isFetching: false}, action) => {
             //console.log(state);
             state = {
                 ...state,
-                post: action.data.body,
+                post: action.data,
                 isFetching: false
             };
             //console.log(state);

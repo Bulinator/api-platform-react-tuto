@@ -1,5 +1,6 @@
 import { combineReducers } from "redux";
 import {reducer as formReducer} from 'redux-form';
+import {routerReducer} from "react-router-redux";
 import blogPostList from "./reducers/BlogPostList";
 import blogPost from "./reducers/blogPost";
 import commentList from "./reducers/commentList";
@@ -10,5 +11,6 @@ export default  combineReducers({
     blogPost,
     commentList,
     auth,
+    router: routerReducer(),
     form: formReducer
 });

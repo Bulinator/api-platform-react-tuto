@@ -4,12 +4,23 @@ import {connect} from "react-redux";
 import {renderField} from "../form";
 import {userLoginAttempt} from '../actions';
 
+const mapStateToProps = state => ({
+   ...state.auth
+});
 
 const mapDispatchToProps = {
     userLoginAttempt
 };
 
 class LoginForm extends Component {
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (prevProps.token !== this.props.token) {
+            console.log(prevProps);
+            console.log(this.props);
+            this.props.history.push('/');
+        }
+    }
+
     onSubmit(values) {
         return this.props.userLoginAttempt(
              values.username, values.password
@@ -33,4 +44,4 @@ class LoginForm extends Component {
 
 export default reduxForm({
     form: 'LoginForm'
-})(connect(null, mapDispatchToProps)(LoginForm));
+})(connect(mapStateToProps, mapDispatchToProps)(LoginForm));

@@ -18,7 +18,7 @@ export default(state = {posts: null, isFetching: false}, action) => {
         case BLOG_POST_LIST_RECEIVED:
             state = {
                 ...state,
-                posts: action.data.body['hydra:member'],
+                posts: action.data['hydra:member'],
                 isFetching: false
             };
             return state;

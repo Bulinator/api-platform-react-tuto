@@ -17,7 +17,7 @@ export default(state = {commentList: null, isFetching: false}, action) => {
         case COMMENT_LIST_RECEIVED:
             return {
                 ...state,
-                commentList: action.data.body['hydra:member'],
+                commentList: action.data['hydra:member'],
                 isFetching: false
             };
         case COMMENT_LIST_ERROR:
