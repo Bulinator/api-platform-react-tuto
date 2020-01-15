@@ -16,18 +16,33 @@ const mapDispatchToProps = {
 
 class BlogPostListContainer extends Component {
     componentDidMount() {
-        this.props.blogPostListFetch();
+        this.props.blogPostListFetch(this.getQueryParamPage());
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const { currentPage, blogPostListFetch } = this.props;
+        const { currentPage, blogPostListFetch, blogPostListSetPage } = this.props;
+
+        if (prevProps.match.params.page !== this.getQueryParamPage()) {
+            blogPostListSetPage(this.getQueryParamPage());
+        }
+
         if (prevProps.currentPage !== currentPage) {
             blogPostListFetch(currentPage);
         }
     }
 
+    getQueryParamPage() {
+        return Number(this.props.match.params.page) || 1;
+    }
+
+    changePage(page) {
+        const {history, blogPostListSetPage } = this.props;
+        blogPostListSetPage(page);
+        history.push(`/${page}`);
+    }
+
     render() {
-        const {posts, isFetching, blogPostListSetPage, currentPage} = this.props;
+        const {posts, isFetching, currentPage} = this.props;
 
         if (isFetching) {
             return <Spinner />
@@ -36,7 +51,7 @@ console.log('blogpost list cpage', currentPage);
         return (
             <div>
                 <BlogPostList posts={posts} />
-                <Paginator currentPage={currentPage} pageCount={10} setPage={blogPostListSetPage} />
+                <Paginator currentPage={currentPage} pageCount={10} setPage={this.changePage.bind(this)} />
             </div>
         );
     }
