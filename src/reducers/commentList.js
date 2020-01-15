@@ -16,7 +16,8 @@ export default(state = {commentList: null, isFetching: false, currentPage: 1, pa
         case COMMENT_LIST_RECEIVED:
             return {
                 ...state,
-                commentList: action.data['hydra:member'],
+                commentList: !state.commentList ? action.data['hydra:member'] :
+                    state.commentList.concat(action.data['hydra:member']),
                 isFetching: false,
                 currentPage: state.currentPage + 1,
                 pageCount: hydraPageCount(action.data)
