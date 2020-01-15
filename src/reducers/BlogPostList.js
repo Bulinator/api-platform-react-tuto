@@ -2,12 +2,11 @@ import {
     BLOG_POST_LIST_REQUEST,
     BLOG_POST_LIST_ADD,
     BLOG_POST_LIST_RECEIVED,
-    BLOG_POST_LIST_ERROR
+    BLOG_POST_LIST_ERROR,
+    BLOG_POST_LIST_SET_PAGE
 } from "../actions/types";
 
-
-
-export default(state = {posts: null, isFetching: false}, action) => {
+export default(state = {posts: null, isFetching: false, currentPage: 1, pageCount: null}, action) => {
     switch (action.type) {
         case BLOG_POST_LIST_REQUEST:
             state = {
@@ -35,6 +34,12 @@ export default(state = {posts: null, isFetching: false}, action) => {
                 posts: state.posts ? state.posts.concat(action.data) : state.posts
             };
             return state;
+        case BLOG_POST_LIST_SET_PAGE:
+            console.log('reducer', action.page);
+            return {
+                ...state,
+                currentPage: action.page
+            };
         default:
             return state;
     }

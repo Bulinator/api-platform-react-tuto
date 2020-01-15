@@ -6,8 +6,8 @@ import {
     BLOG_POST_RECEIVED,
     BLOG_POST_REQUEST,
     BLOG_POST_ERROR,
-    BLOG_POST_UNLOAD
-
+    BLOG_POST_UNLOAD,
+    BLOG_POST_LIST_SET_PAGE
 } from "./types";
 import {requests} from "../agent";
 
@@ -25,6 +25,11 @@ export const blogPostListReceived = (data) => ({
     data
 });
 
+export const blogPostListSetPage = (page) => ({
+    type: BLOG_POST_LIST_SET_PAGE,
+    page
+});
+
 export const blogPostAdd = () => ({
     type: BLOG_POST_LIST_ADD,
     data: {
@@ -33,10 +38,10 @@ export const blogPostAdd = () => ({
     }
 });
 
-export const blogPostListFetch = () => {
+export const blogPostListFetch = (page = 1) => {
     return (dispatch) => {
         dispatch(blogPostListRequest());
-        requests.get('/blog_posts')
+        requests.get(`/blog_posts?_page=${page}`)
             .then(response => dispatch(blogPostListReceived(response)))
             .catch(error => dispatch(blogPostListError(error)));
     }
