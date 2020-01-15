@@ -4,6 +4,7 @@ import CommentList from "../components/CommentList";
 import {commentListFetch, commentListUnload} from "../actions";
 import {Spinner} from "../components/common/Spinner";
 import CommentForm from "../components/CommentForm";
+import {LoadMore} from "../components/common/LoadMore";
 
 const mapStateToProps = state => ({
     ...state.commentList,
@@ -24,9 +25,14 @@ class CommentListContainer extends Component {
         this.props.commentListUnload();
     }
 
-    render() {
-        const {isFetching, commentList, isAuthenticated, blogPostId} = this.props;
+    onLoadMoreClick() {
+        const { blogPostId, currentPage, commentListFetch } = this.props;
+        commentListFetch(blogPostId, currentPage);
+    }
 
+    render() {
+        const {isFetching, commentList, isAuthenticated, blogPostId, currentPage, pageCount} = this.props;
+        const showLoadMore = pageCount > 1 && currentPage <= pageCount;
         if (isFetching) {
             return <Spinner />
         }
@@ -34,6 +40,9 @@ class CommentListContainer extends Component {
         return (
             <div>
                 <CommentList commentList={commentList} />
+                {showLoadMore &&
+                    <LoadMore label="Load more comments..." onClick={this.onLoadMoreClick.bind(this)} disabled={isFetching} />
+                }
                 {isAuthenticated && <CommentForm blogPostId={blogPostId}/>}
             </div>
         );
