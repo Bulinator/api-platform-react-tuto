@@ -7,6 +7,7 @@ import BlogPostContainer from '../container/BlogPostContainer';
 import Header from "./Header";
 import {requests} from "../agent";
 import {userLogout, userProfileFetch, userSetId} from "../actions";
+import RegisterForm from "./RegisterForm";
 
 
 const mapStateToProps = state => ({
@@ -53,7 +54,8 @@ class App extends Component {
                 <Header isAuthenticated={isAuthenticated} userData={userData} logout={userLogout} />
                 <Switch>
                     <Route path="/login" exact component={LoginForm} />
-                    <Route path="/blog-post/:id" exact component={BlogPostContainer}/>
+                    <Route path="/blog-post/:id" exact component={BlogPostContainer} />
+                    <Route path="/register" component={RegisterForm} />
                     <Route path="/:page?" exact component={BlogPostListContainer} />
                 </Switch>
             </div>
