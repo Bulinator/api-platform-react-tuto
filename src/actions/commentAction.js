@@ -8,6 +8,7 @@ import {
     COMMENT_LIST_UNLOAD
 } from "./types";
 import {parseApiErrors} from "../utils/apiUtils";
+import {userLogout} from "./userAction";
 
 
 export const commentListFetch = (id) => {
@@ -49,6 +50,9 @@ export const commentAdd = (comment, blogPostId) => {
             blogPost: `/api/blog_posts/${blogPostId}`
         }).then(response => dispatch(commentAdded(response)))
             .catch(error => {
+                if (401 === error.response.status) {
+                    return dispatch(userLogout());
+                }
                 throw new SubmissionError(parseApiErrors(error));
             });
     }
