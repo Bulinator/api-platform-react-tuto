@@ -1,5 +1,6 @@
 import {requests} from "../agent";
 import {
+    COMMENT_ADDED,
     COMMENT_LIST_ERROR,
     COMMENT_LIST_RECEIVED,
     COMMENT_LIST_REQUEST,
@@ -32,3 +33,17 @@ export const commentListReceived = (data) => ({
 export const commentListUnload = () => ({
     type: COMMENT_LIST_UNLOAD
 });
+
+export const commentAdded = (comment) => ({
+    type: COMMENT_ADDED,
+    comment
+});
+
+export const commentAdd = (comment, blogPostId) => {
+    return (dispatch) => {
+        return requests.post('/comments', {
+            content: comment,
+            blogPost: `/api/blog_posts/${blogPostId}`
+        }).then(response => dispatch(commentAdded(response)));
+    }
+};
