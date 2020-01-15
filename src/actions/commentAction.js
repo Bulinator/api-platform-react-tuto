@@ -7,6 +7,7 @@ import {
     COMMENT_LIST_REQUEST,
     COMMENT_LIST_UNLOAD
 } from "./types";
+import {parseApiErrors} from "../utils/apiUtils";
 
 
 export const commentListFetch = (id) => {
@@ -48,9 +49,7 @@ export const commentAdd = (comment, blogPostId) => {
             blogPost: `/api/blog_posts/${blogPostId}`
         }).then(response => dispatch(commentAdded(response)))
             .catch(error => {
-                throw new SubmissionError({
-                    content: 'This is an error'
-                })
+                throw new SubmissionError(parseApiErrors(error));
             });
     }
 };
