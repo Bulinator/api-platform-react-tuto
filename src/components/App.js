@@ -6,7 +6,7 @@ import BlogPostListContainer from "../container/BlogPostListContainer";
 import BlogPostContainer from '../container/BlogPostContainer';
 import Header from "./Header";
 import {requests} from "../agent";
-import {userProfileFetch, userSetId} from "../actions";
+import {userLogout, userProfileFetch, userSetId} from "../actions";
 
 
 const mapStateToProps = state => ({
@@ -15,7 +15,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     userProfileFetch,
-    userSetId
+    userSetId,
+    userLogout
 };
 
 class App extends Component {
@@ -46,10 +47,10 @@ class App extends Component {
     }
 
     render() {
-        const { isAuthenticated, userData } = this.props;
+        const { isAuthenticated, userData, userLogout} = this.props;
         return (
             <div>
-                <Header isAuthenticated={isAuthenticated} userData={userData} />
+                <Header isAuthenticated={isAuthenticated} userData={userData} logout={userLogout} />
                 <Switch>
                     <Route path="/login" exact component={LoginForm} />
                     <Route path="/blog-post/:id" exact component={BlogPostContainer}/>

@@ -1,4 +1,4 @@
-import {USER_LOGIN_SUCCESS} from "./actions/types";
+import {USER_LOGIN_SUCCESS, USER_LOGOUT} from "./actions/types";
 import {requests} from "./agent";
 
 export const tokenMiddleware = store => next => action => {
@@ -7,8 +7,12 @@ export const tokenMiddleware = store => next => action => {
             window.localStorage.setItem('jwtToken', action.token);
             window.localStorage.setItem('userId', action.userId);
             requests.setToken(action.token);
-            console.log('From middleware:', action.token);
+            // console.log('From middleware:', action.token);
             break;
+        case USER_LOGOUT:
+            window.localStorage.removeItem('jwtToken');
+            window.localStorage.removeItem('userId');
+            requests.setToken(null);
         default:
     }
 

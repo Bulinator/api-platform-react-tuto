@@ -8,8 +8,8 @@ import "./CommentList.css";
 class CommentList extends Component {
     render() {
         const { commentList } = this.props;
-        console.log(commentList);
-        if (null === commentList) {
+
+        if (null === commentList || 0 === commentList) {
             return (
                 <Message message="No comment yet...be the first!" />
             );

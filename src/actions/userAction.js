@@ -5,7 +5,8 @@ import {
     USER_PROFILE_ERROR,
     USER_PROFILE_RECEIVED,
     USER_PROFILE_REQUEST,
-    USER_SET_ID
+    USER_SET_ID,
+    USER_LOGOUT
 } from "./types";
 
 
@@ -42,6 +43,11 @@ export const userSetId = (userId) => {
     }
 };
 
+export const userLogout = () => {
+    return {
+        type: USER_LOGOUT
+    }
+}
 
 export const userProfileError = () => {
     return {
