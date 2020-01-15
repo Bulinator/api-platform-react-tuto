@@ -1,3 +1,4 @@
+import {SubmissionError} from "redux-form";
 import {requests} from "../agent";
 import {
     COMMENT_ADDED,
@@ -6,6 +7,7 @@ import {
     COMMENT_LIST_REQUEST,
     COMMENT_LIST_UNLOAD
 } from "./types";
+
 
 export const commentListFetch = (id) => {
     return (dispatch) => {
@@ -44,6 +46,11 @@ export const commentAdd = (comment, blogPostId) => {
         return requests.post('/comments', {
             content: comment,
             blogPost: `/api/blog_posts/${blogPostId}`
-        }).then(response => dispatch(commentAdded(response)));
+        }).then(response => dispatch(commentAdded(response)))
+            .catch(error => {
+                throw new SubmissionError({
+                    content: 'This is an error'
+                })
+            });
     }
 };

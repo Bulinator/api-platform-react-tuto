@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Field, reduxForm} from 'redux-form';
+import {Field, reduxForm, reset} from 'redux-form';
 import { connect } from 'react-redux';
 import {renderField} from "../form";
 import {commentAdd} from "../actions";
@@ -13,7 +13,8 @@ const mapDispatchToProps = {
 class CommentForm extends Component {
     onSubmit(values) {
         const { commentAdd, blogPostId } = this.props;
-        return commentAdd(values.content, blogPostId);
+        // reset() is from redux form to reset the form
+        return commentAdd(values.content, blogPostId).then(() => reset());
     }
 
     render() {
