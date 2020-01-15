@@ -1,5 +1,10 @@
-import {USER_LOGIN_SUCCESS, USER_LOGOUT} from "./actions/types";
+import {
+    USER_LOGIN_SUCCESS,
+    USER_LOGOUT,
+    USER_PROFILE_ERROR
+} from "./actions/types";
 import {requests} from "./agent";
+import {userLogout} from "./actions";
 
 export const tokenMiddleware = store => next => action => {
     switch (action.type) {
@@ -13,6 +18,13 @@ export const tokenMiddleware = store => next => action => {
             window.localStorage.removeItem('jwtToken');
             window.localStorage.removeItem('userId');
             requests.setToken(null);
+        case USER_PROFILE_ERROR:
+            // console.log(store.getState());
+            const state = store.getState().auth;
+            if (state.userId === action.userId && state.userData === null) {
+                store.dispatch(userLogout());
+            }
+            break;
         default:
     }
 

@@ -49,9 +49,10 @@ export const userLogout = () => {
     }
 }
 
-export const userProfileError = () => {
+export const userProfileError = (userId) => {
     return {
-        type: USER_PROFILE_ERROR
+        type: USER_PROFILE_ERROR,
+        userId
     }
 };
 
@@ -68,6 +69,6 @@ export const userProfileFetch = (userId) => {
         dispatch(userProfileRequest());
         return requests.get(`/users/${userId}`, true)
             .then(response => dispatch(userProfileReceived(userId, response)))
-            .catch(error => dispatch(userProfileError(error)));
+            .catch(error => dispatch(userProfileError(userId)));
     }
 };
