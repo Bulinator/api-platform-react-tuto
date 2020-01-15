@@ -41,8 +41,25 @@ class BlogPostListContainer extends Component {
         history.push(`/${page}`);
     }
 
+    /**
+     * buggy func (rendering)
+     * @param e
+     */
+    onNextPageClick(e) {
+        const { currentPage, pageCount } = this.props
+        const newPage = Math.min(currentPage + 1, pageCount);
+        console.log('new page', newPage);
+        this.changePage(newPage);
+    }
+
+    onPrevPageClick(e) {
+        const { currentPage } = this.props;
+        const newPage = Math.max(currentPage - 1, 1);
+        this.changePage(newPage);
+    }
+
     render() {
-        const {posts, isFetching, currentPage} = this.props;
+        const {posts, isFetching, currentPage, pageCount} = this.props;
 
         if (isFetching) {
             return <Spinner />
@@ -51,7 +68,13 @@ console.log('blogpost list cpage', currentPage);
         return (
             <div>
                 <BlogPostList posts={posts} />
-                <Paginator currentPage={currentPage} pageCount={10} setPage={this.changePage.bind(this)} />
+                <Paginator
+                    currentPage={currentPage}
+                    pageCount={pageCount}
+                    setPage={this.changePage.bind(this)}
+                    nextPage={this.onNextPageClick.bind(this)}
+                    prevPage={this.onPrevPageClick.bind(this)}
+                />
             </div>
         );
     }

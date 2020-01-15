@@ -5,6 +5,7 @@ import {
     BLOG_POST_LIST_ERROR,
     BLOG_POST_LIST_SET_PAGE
 } from "../actions/types";
+import {hydraPageCount} from "../utils/apiUtils";
 
 export default(state = {posts: null, isFetching: false, currentPage: 1, pageCount: null}, action) => {
     switch (action.type) {
@@ -18,6 +19,7 @@ export default(state = {posts: null, isFetching: false, currentPage: 1, pageCoun
             state = {
                 ...state,
                 posts: action.data['hydra:member'],
+                pageCount: hydraPageCount(action.data),
                 isFetching: false
             };
             return state;
