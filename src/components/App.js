@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {Route, Switch} from "react-router";
 import {connect} from "react-redux";
-import LoginForm from "./LoginForm";
-import BlogPostListContainer from "../container/BlogPostListContainer";
-import BlogPostContainer from '../container/BlogPostContainer';
 import Header from "./Header";
 import {requests} from "../agent";
 import {userLogout, userProfileFetch, userSetId} from "../actions";
-import RegisterForm from "./RegisterForm";
+import LoginForm from "./LoginForm";
+import BlogPostListContainer from "../container/BlogPostListContainer";
+import BlogPostContainer from '../container/BlogPostContainer';
+import RegistrationContainer from "../container/RegistrationContainer";
 
 
 const mapStateToProps = state => ({
@@ -55,7 +55,7 @@ class App extends Component {
                 <Switch>
                     <Route path="/login" exact component={LoginForm} />
                     <Route path="/blog-post/:id" exact component={BlogPostContainer} />
-                    <Route path="/register" component={RegisterForm} />
+                    <Route path="/register" component={RegistrationContainer} />
                     <Route path="/:page?" exact component={BlogPostListContainer} />
                 </Switch>
             </div>
