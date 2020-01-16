@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from "react-router";
 import {canWriteBlogPost} from "../utils/apiUtils";
 import {renderField} from "../form";
-import {blogPostAdd, blogPostFormUnload} from "../actions";
+import {blogPostAdd, blogPostFormUnload, imageDelete} from "../actions";
 import ImageUpload from "./common/ImageUpload";
 import {ImageBrowser} from "./common/ImageBrowser";
 
@@ -16,7 +16,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     blogPostAdd,
-    blogPostFormUnload
+    blogPostFormUnload,
+    imageDelete
 };
 
 
@@ -39,7 +40,7 @@ class BlogPostForm extends Component {
             return <Redirect to="/login" />
         }
 
-        const {submitting, handleSubmit, error, images, isImageUploading} = this.props;
+        const {submitting, handleSubmit, error, images, isImageUploading, imageDelete} = this.props;
 
         return (
             <div className="card mt-3 mb-6 shadow-sm">
@@ -52,7 +53,7 @@ class BlogPostForm extends Component {
                         <Field name="content" label="Content:" type="textarea" component={renderField}/>
 
                         <ImageUpload />
-                        <ImageBrowser images={images} />
+                        <ImageBrowser images={images} deleteHandler={imageDelete} />
 
                         <button
                             type="submit"
