@@ -6,7 +6,7 @@ import {userRegister} from "../actions";
 
 const mapDispatchToProps = {
     userRegister
-}
+};
 
 class RegisterForm extends Component {
     constructor(props) {
@@ -19,7 +19,7 @@ class RegisterForm extends Component {
         return this.props.userRegister(...Object.values(values))
             .then(() => {
                 this.props.reset();
-                this.props.history.push('/');
+                // this.props.history.push('/');
             });
     }
 
