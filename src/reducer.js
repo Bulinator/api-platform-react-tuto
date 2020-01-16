@@ -6,6 +6,7 @@ import blogPost from "./reducers/blogPost";
 import commentList from "./reducers/commentList";
 import auth from "./reducers/auth";
 import registration from "./reducers/registration";
+import blogPostForm from "./reducers/blogPostForm";
 
 export default  combineReducers({
     blogPostList,
@@ -13,6 +14,7 @@ export default  combineReducers({
     commentList,
     auth,
     registration,
+    blogPostForm,
     router: routerReducer(),
     form: formReducer
 });

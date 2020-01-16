@@ -6,10 +6,12 @@ import {canWriteBlogPost} from "../utils/apiUtils";
 import {renderField} from "../form";
 import {blogPostAdd, blogPostFormUnload} from "../actions";
 import ImageUpload from "./common/ImageUpload";
+import ImageBrowser from "./common/ImageBrowser";
 
 
 const mapStateToProps = state => ({
-    userData: state.auth.userData
+    userData: state.auth.userData,
+    ...state.blogPostForm
 });
 
 const mapDispatchToProps = {
@@ -33,7 +35,7 @@ class BlogPostForm extends Component {
             return <Redirect to="/login" />
         }
 
-        const {submitting, handleSubmit, error} = this.props;
+        const {submitting, handleSubmit, error, images} = this.props;
 
         return (
             <div className="card mt-3 mb-6 shadow-sm">
@@ -46,6 +48,7 @@ class BlogPostForm extends Component {
                         <Field name="content" label="Content:" type="textarea" component={renderField}/>
 
                         <ImageUpload />
+                        <ImageBrowser images={images} />
 
                         <button type="submit" className="btn btn-primary btn-big btn-block" disabled={submitting}>
                             Publish it now!
