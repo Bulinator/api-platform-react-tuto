@@ -22,12 +22,16 @@ const mapDispatchToProps = {
 
 class BlogPostForm extends Component {
     onSubmit(values) {
-        const { blogPostAdd, reset, history } = this.props;
-        return blogPostAdd(values.title, values.content)
+        const { blogPostAdd, reset, history, images } = this.props;
+        return blogPostAdd(values.title, values.content, images)
             .then(() => {
                reset();
                history.push('/');
             });
+    }
+
+    componentWillUnmount() {
+        this.props.blogPostFormUnload();
     }
 
     render() {
@@ -35,7 +39,7 @@ class BlogPostForm extends Component {
             return <Redirect to="/login" />
         }
 
-        const {submitting, handleSubmit, error, images} = this.props;
+        const {submitting, handleSubmit, error, images, isImageUploading} = this.props;
 
         return (
             <div className="card mt-3 mb-6 shadow-sm">
@@ -50,7 +54,11 @@ class BlogPostForm extends Component {
                         <ImageUpload />
                         <ImageBrowser images={images} />
 
-                        <button type="submit" className="btn btn-primary btn-big btn-block" disabled={submitting}>
+                        <button
+                            type="submit"
+                            className="btn btn-primary btn-big btn-block"
+                            disabled={submitting || isImageUploading}
+                        >
                             Publish it now!
                         </button>
                     </form>
