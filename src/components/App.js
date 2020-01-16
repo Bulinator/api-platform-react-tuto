@@ -8,6 +8,7 @@ import LoginForm from "./LoginForm";
 import BlogPostListContainer from "../container/BlogPostListContainer";
 import BlogPostContainer from '../container/BlogPostContainer';
 import RegistrationContainer from "../container/RegistrationContainer";
+import BlogPostForm from "./BlogPostForm";
 
 
 const mapStateToProps = state => ({
@@ -54,6 +55,7 @@ class App extends Component {
                 <Header isAuthenticated={isAuthenticated} userData={userData} logout={userLogout} />
                 <Switch>
                     <Route path="/login" exact component={LoginForm} />
+                    <Route path="/blog-post-form" exact component={BlogPostForm} />
                     <Route path="/blog-post/:id" exact component={BlogPostContainer} />
                     <Route path="/register" component={RegistrationContainer} />
                     <Route path="/:page?" exact component={BlogPostListContainer} />

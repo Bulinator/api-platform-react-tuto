@@ -30,6 +30,14 @@ class Header extends Component {
                             <Link to="/register" className="nav-link">Register</Link>
                         </li>
                     }
+
+                    {isAuthenticated &&
+                        <li className="nav-item">
+                            <Link to="/blog-post-form" className="nav-link">
+                                Create new post
+                            </Link>
+                        </li>
+                    }
                 </ul>
                 <span className="navbar-text">
                     {isAuthenticated ?
