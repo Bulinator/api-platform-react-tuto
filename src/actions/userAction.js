@@ -8,6 +8,7 @@ import {
     USER_SET_ID,
     USER_LOGOUT
 } from "./types";
+import {parseApiErrors} from "../utils/apiUtils";
 
 
 export const userLoginAttempt = (username, password) => {
@@ -70,5 +71,14 @@ export const userProfileFetch = (userId) => {
         return requests.get(`/users/${userId}`, true)
             .then(response => dispatch(userProfileReceived(userId, response)))
             .catch(error => dispatch(userProfileError(userId)));
+    }
+};
+
+export const userRegister = (username, password, retypedPassword, email, name) => {
+    return (dispatch) => {
+        return requests.post('/users', {username, password, retypedPassword, email, name}, false)
+            .catch(error => {
+                throw new SubmissionError(parseApiErrors(error));
+            });
     }
 };
