@@ -6,7 +6,7 @@ import {canWriteBlogPost} from "../utils/apiUtils";
 import {renderField} from "../form";
 import {blogPostAdd, blogPostFormUnload} from "../actions";
 import ImageUpload from "./common/ImageUpload";
-import ImageBrowser from "./common/ImageBrowser";
+import {ImageBrowser} from "./common/ImageBrowser";
 
 
 const mapStateToProps = state => ({
