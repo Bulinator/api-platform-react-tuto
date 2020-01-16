@@ -40,7 +40,7 @@ class BlogPostForm extends Component {
             return <Redirect to="/login" />
         }
 
-        const {submitting, handleSubmit, error, images, isImageUploading, imageDelete} = this.props;
+        const {submitting, handleSubmit, error, images, imageReqInProgress, imageDelete} = this.props;
 
         return (
             <div className="card mt-3 mb-6 shadow-sm">
@@ -53,12 +53,16 @@ class BlogPostForm extends Component {
                         <Field name="content" label="Content:" type="textarea" component={renderField}/>
 
                         <ImageUpload />
-                        <ImageBrowser images={images} deleteHandler={imageDelete} />
+                        <ImageBrowser
+                            images={images}
+                            deleteHandler={imageDelete}
+                            isLocked={{imageReqInProgress}}
+                        />
 
                         <button
                             type="submit"
                             className="btn btn-primary btn-big btn-block"
-                            disabled={submitting || isImageUploading}
+                            disabled={submitting || imageReqInProgress}
                         >
                             Publish it now!
                         </button>
